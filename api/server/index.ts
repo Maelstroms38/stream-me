@@ -2,9 +2,12 @@ import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import cors from 'cors';
+import { config } from 'dotenv';
 
 import createSchema from '../schema';
 import createSession from '../session';
+
+config();
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 8000;

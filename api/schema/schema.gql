@@ -3,15 +3,53 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input AuthInput {
+  email: String!
+  password: String!
+}
+
+type FieldError {
+  message: String!
+  path: String!
+}
+
+type Mutation {
+  addStream(input: StreamInput!): Stream!
+  login(input: AuthInput!): UserResponse!
+  logout: Boolean!
+  register(input: AuthInput!): UserResponse!
+}
+
 """Mongo object id scalar type"""
 scalar ObjectId
 
 type Query {
   currentUser: User
+  stream(streamId: ObjectId!): Stream
+  streams: [Stream!]!
+  user(userId: ObjectId!): User
+}
+
+type Stream {
+  _id: ObjectId!
+  author: User!
+  description: String!
+  title: String!
+  url: String!
+}
+
+input StreamInput {
+  description: String
+  title: String!
+  url: String
 }
 
 type User {
   _id: ObjectId!
   email: String!
-  username: String!
+}
+
+type UserResponse {
+  errors: [FieldError!]
+  user: User
 }
