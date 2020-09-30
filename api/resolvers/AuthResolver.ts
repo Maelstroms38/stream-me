@@ -86,7 +86,7 @@ export class AuthResolver {
           return rej(false);
         }
 
-        ctx.res.clearCookie('qid');
+        ctx.res.clearCookie(process.env.SESSION_NAME || 'qid');
         return res(true);
       })
     );

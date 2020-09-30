@@ -36,7 +36,11 @@ async function createServer() {
       context: ({ req, res }) => ({ req, res }),
       introspection: true,
       // enable GraphQL Playground
-      playground: true,
+      playground: {
+        settings: {
+          'request.credentials': 'include',
+        },
+      },
     });
 
     apolloServer.applyMiddleware({ app, cors: true });
