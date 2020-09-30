@@ -1,0 +1,10 @@
+query Streams {
+  streams {
+    title
+    description
+    url
+    author {
+      email
+    }
+  }
+}

@@ -12,15 +12,27 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/client": "^3.2.1",
+    "@graphql-tools/load-files": "^6.2.4",
+    "@graphql-tools/merge": "^6.2.4",
+    "@graphql-tools/schema": "^6.2.4",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "graphql": "^15.3.0",
     "next": "^9.5.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.17.10",
+    "@graphql-codegen/plugin-helpers": "^1.17.9",
+    "@graphql-codegen/typescript": "^1.17.10",
+    "@graphql-codegen/typescript-operations": "^1.17.8",
+    "@graphql-codegen/typescript-react-apollo": "^2.0.7",
     "@types/node": "^14.11.1",
     "@types/react": "^16.9.49",
-    "typescript": "^4.0.3"
+    "graphql-let": "^0.16.1",
+    "typescript": "^4.0.3",
+    "yaml-loader": "^0.6.0"
   }
 }

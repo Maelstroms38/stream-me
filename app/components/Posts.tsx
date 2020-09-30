@@ -1,39 +1,19 @@
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Hidden from "@material-ui/core/Hidden";
-import { makeStyles } from "@material-ui/core/styles";
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Hidden from '@material-ui/core/Hidden';
+import { makeStyles } from '@material-ui/core/styles';
 
-const featuredPosts = [
-  {
-    title: "Featured post",
-    date: "Nov 12",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-  },
-  {
-    title: "Post title",
-    date: "Nov 11",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-  },
-  {
-    title: "New post title",
-    date: "Nov 11",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-  },
-];
-
-export default function Posts() {
+export default function Posts(props) {
   const styles = useStyles();
+  const { streams } = props;
 
   return (
     <Grid container spacing={4}>
-      {featuredPosts.map((post) => (
+      {streams.map((post) => (
         <Grid item key={post.title} xs={12} md={6}>
           <CardActionArea component="a" href="#">
             <Card className={styles.card}>
@@ -43,7 +23,7 @@ export default function Posts() {
                     {post.title}
                   </Typography>
                   <Typography variant="subtitle1" color="textSecondary">
-                    {post.date}
+                    {post.url}
                   </Typography>
                   <Typography variant="subtitle1" paragraph>
                     {post.description}
@@ -70,7 +50,7 @@ export default function Posts() {
 
 const useStyles = makeStyles(() => ({
   card: {
-    display: "flex",
+    display: 'flex',
   },
   cardDetails: {
     flex: 1,
