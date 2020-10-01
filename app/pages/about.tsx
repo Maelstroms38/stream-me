@@ -2,21 +2,24 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 
 import Navigation from '../components/Navigation';
-import Hero from '../components/Hero';
 import Posts from '../components/Posts';
 
 import { initializeApollo } from '../lib/apollo';
-import { useStreamsQuery, StreamsDocument } from '../lib/streams.graphql';
+import {
+  useStreamsQuery,
+  StreamsDocument,
+  Stream,
+} from '../lib/streams.graphql';
 
 export default function About() {
   const { data, loading } = useStreamsQuery();
-  console.log(data);
   return (
     <React.Fragment>
       <Navigation title={'About'} />
       <Container maxWidth="lg">
-        <Hero />
-        {!loading && data && data.streams && <Posts streams={data.streams} />}
+        {!loading && data && data.streams && (
+          <Posts streams={data.streams as Stream[]} />
+        )}
       </Container>
     </React.Fragment>
   );

@@ -1,17 +1,22 @@
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
-import { makeStyles } from "@material-ui/core/styles";
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import { Stream } from '../lib/streams.graphql';
 
-export default function Hero() {
+interface Props {
+  stream: Stream;
+}
+
+export default function Hero(props: Props) {
   const styles = useStyles();
+  const { stream } = props;
 
   return (
     <Paper className={styles.mainFeaturedPost}>
       {
         <img
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           src="https://source.unsplash.com/user/erondu"
           alt="background"
         />
@@ -26,16 +31,11 @@ export default function Hero() {
               color="inherit"
               gutterBottom
             >
-              Title of a longer featured blog post
+              {stream.title}
             </Typography>
             <Typography variant="h5" color="inherit" paragraph>
-              Multiple lines of text that form the lede, informing new readers
-              quickly and efficiently about what&apos;s most interesting in this
-              post&apos;s contents.
+              {stream.description}
             </Typography>
-            <Link variant="subtitle1" href="#">
-              Continue reading…
-            </Link>
           </div>
         </Grid>
       </Grid>
@@ -51,27 +51,27 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   mainFeaturedPost: {
-    position: "relative",
+    position: 'relative',
     backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
     marginBottom: theme.spacing(4),
-    backgroundImage: "url(https://source.unsplash.com/user/erondu)",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
+    backgroundImage: 'url(https://source.unsplash.com/user/erondu)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
   },
   overlay: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: "rgba(0,0,0,.7)",
+    backgroundColor: 'rgba(0,0,0,.7)',
   },
   mainFeaturedPostContent: {
-    position: "relative",
+    position: 'relative',
     padding: theme.spacing(3),
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       padding: theme.spacing(6),
       paddingRight: 0,
     },

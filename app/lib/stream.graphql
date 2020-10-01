@@ -1,5 +1,5 @@
-query Streams {
-  streams {
+query Stream($streamId: ObjectId!) {
+  stream(streamId: $streamId) {
     _id
     title
     description
