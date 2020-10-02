@@ -1,4 +1,4 @@
-schema: ./lib/type-defs.graphqls
+schema: http://localhost:8000/graphql
 documents: '**/*.graphql'
 plugins:
   - typescript

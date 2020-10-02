@@ -17,12 +17,11 @@ async function createServer() {
     const app = express();
 
     // allow CORS from client app
-    app.use(
-      cors({
-        origin: dev ? process.env.URL_APP : process.env.PRODUCTION_URL_APP,
-        credentials: true,
-      })
-    );
+    const corsOptions = {
+      origin: dev ? process.env.URL_APP : process.env.PRODUCTION_URL_APP,
+      credentials: true,
+    };
+    app.use(cors(corsOptions));
     // allow JSON requests
     app.use(express.json());
     // use MongoDB session
@@ -43,7 +42,7 @@ async function createServer() {
       },
     });
 
-    apolloServer.applyMiddleware({ app, cors: true });
+    apolloServer.applyMiddleware({ app, cors: corsOptions });
 
     // start the server
     app.listen({ port }, () => {

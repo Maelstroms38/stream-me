@@ -7,7 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
 import Link from 'next/link';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Stream } from '../lib/streams.graphql';
+import { Stream } from '../lib/graphql/streams.graphql';
 
 interface Props {
   streams: Stream[];

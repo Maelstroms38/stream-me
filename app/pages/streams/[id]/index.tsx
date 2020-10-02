@@ -1,12 +1,11 @@
 import * as React from 'react';
-import Navigation from '../../../components/Navigation';
 import Hero from '../../../components/Hero';
 import {
   useStreamQuery,
   Stream,
   StreamDocument,
-} from '../../../lib/stream.graphql';
-import { StreamsDocument } from '../../../lib/streams.graphql';
+} from '../../../lib/graphql/stream.graphql';
+import { StreamsDocument } from '../../../lib/graphql/streams.graphql';
 import { initializeApollo } from '../../../lib/apollo';
 
 interface Props {
@@ -19,7 +18,6 @@ export default function StreamPage({ id }: Props) {
   if (!loading && data && data.stream) {
     return (
       <React.Fragment>
-        <Navigation title={data.stream.title} />
         <Hero stream={data.stream as Stream} />
       </React.Fragment>
     );

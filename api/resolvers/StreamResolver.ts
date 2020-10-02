@@ -24,8 +24,8 @@ export class StreamResolver {
   }
 
   @Query(() => [Stream])
-  streams() {
-    return StreamModel.find({});
+  streams(@Arg('userId', () => ObjectIdScalar) userId: ObjectId) {
+    return StreamModel.find({ author: userId });
   }
 
   @Mutation(() => Stream)

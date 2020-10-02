@@ -2,7 +2,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import { Stream } from '../lib/streams.graphql';
+import { Stream } from '../lib/graphql/streams.graphql';
 
 interface Props {
   stream: Stream;
