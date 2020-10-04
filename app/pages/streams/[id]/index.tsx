@@ -1,12 +1,12 @@
 import * as React from 'react';
-import Hero from '../../../components/Hero';
+import Hero from 'components/Hero';
 import {
   useStreamQuery,
   Stream,
   StreamDocument,
-} from '../../../lib/graphql/stream.graphql';
-import { StreamsDocument } from '../../../lib/graphql/streams.graphql';
-import { initializeApollo } from '../../../lib/apollo';
+} from 'lib/graphql/stream.graphql';
+import { StreamsDocument } from 'lib/graphql/streams.graphql';
+import { initializeApollo } from 'lib/apollo';
 
 interface Props {
   id: string;

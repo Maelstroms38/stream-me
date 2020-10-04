@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useApolloClient } from '@apollo/client';
-import { useSignOutMutation } from '../../lib/graphql/signout.graphql';
+import { useSignOutMutation } from 'lib/graphql/signout.graphql';
 
 export default function SignOut() {
   // Signing Out

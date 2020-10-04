@@ -1,18 +1,18 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 
-import Posts from '../components/Posts';
+import Posts from 'components/Posts';
 
-import { initializeApollo } from '../lib/apollo';
+import { initializeApollo } from 'lib/apollo';
 import {
   useStreamsQuery,
   StreamsDocument,
   Stream,
-} from '../lib/graphql/streams.graphql';
+} from 'lib/graphql/streams.graphql';
 
 export default function About() {
   const { data, loading } = useStreamsQuery({
-    variables: { userId: '5f6cf671b28bda7a3d6e52d1' },
+    variables: { userId: '5f7775ad2445a439c2a947d3' },
   });
   return (
     <React.Fragment>
@@ -30,7 +30,7 @@ export async function getStaticProps() {
 
   await apolloClient.query({
     query: StreamsDocument,
-    variables: { userId: '5f6cf671b28bda7a3d6e52d1' },
+    variables: { userId: '5f7775ad2445a439c2a947d3' },
   });
 
   return {

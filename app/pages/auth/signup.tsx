@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useSignUpMutation } from '../../lib/graphql/signup.graphql';
+import { useApolloClient } from '@apollo/client';
+import { useSignUpMutation } from 'lib/graphql/signup.graphql';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 
 export default function SignUp() {
+  const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState();
   const router = useRouter();
+  const client = useApolloClient();
 
   // Signing Up
-  const [signUpMutation] = useSignUpMutation({
-    async onCompleted({ register }) {
-      const { user } = register;
-      if (user && user._id) {
-        router.push('/');
-      }
-    },
-  });
+  const [signUpMutation] = useSignUpMutation();
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +26,9 @@ export default function SignUp() {
     try {
       const { data } = await signUpMutation({ variables: { email, password } });
       if (data.register.user) {
-        router.push('/');
+        client.resetStore().then(() => {
+          router.push('/');
+        });
       }
     } catch (err) {
       setErrorMsg(err);
@@ -32,27 +36,49 @@ export default function SignUp() {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      {errorMsg && <p>{errorMsg}</p>}
-      <h1>Sign Up</h1>
-      <div className="form-group">
-        <label>Email Address</label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="form-control"
-        />
-      </div>
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          className="form-control"
-        />
-      </div>
-      <button className="btn btn-primary">Sign Up</button>
-    </form>
+    <Container maxWidth="sm">
+      <Box my={4}>
+        <form onSubmit={onSubmit}>
+          {errorMsg && <p>{errorMsg}</p>}
+          <Typography variant="h4" className={classes.title}>
+            Sign Up
+          </Typography>
+          <div className="form-group">
+            <TextField
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-control"
+              label="Email"
+            />
+          </div>
+          <div className="form-group">
+            <TextField
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              className="form-control"
+              label="Password"
+            />
+          </div>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            className={classes.margin}
+          >
+            Sign Up
+          </Button>
+        </form>
+      </Box>
+    </Container>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    marginTop: theme.spacing(1),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));

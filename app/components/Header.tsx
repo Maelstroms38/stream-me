@@ -8,9 +8,14 @@ import {
   Link as LinkText,
 } from '@material-ui/core';
 import Link from 'next/link';
+import { useCurrentUserQuery } from 'lib/graphql/currentUser.graphql';
 
-export default function Header({ currentUser }) {
+export default function Header() {
   const classes = useStyles();
+  const { data, loading } = useCurrentUserQuery({
+    errorPolicy: 'ignore',
+  });
+  const currentUser = !loading && data && data.currentUser;
 
   const links = [
     !currentUser && { label: 'Sign Up', href: '/auth/signup' },
