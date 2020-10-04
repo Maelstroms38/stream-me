@@ -3,13 +3,12 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { useEffect } from 'react';
 import { ApolloProvider } from '@apollo/client';
 
-import { CurrentUserDocument } from '../lib/graphql/currentUser.graphql';
 import { useApollo, initializeApollo } from '../lib/apollo';
 import { themeDark, themeLight } from '../lib/theme';
 import Header from '../components/Header';
+import { CurrentUserDocument } from '../lib/graphql/currentUser.graphql';
 
-export default function MyApp(props) {
-  const { Component, pageProps, currentUser } = props;
+export default function MyApp({ Component, pageProps, currentUser }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
 
   useEffect(() => {
@@ -38,6 +37,7 @@ MyApp.getInitialProps = async (appContext) => {
   try {
     const response = await apolloClient.query({
       query: CurrentUserDocument,
+      fetchPolicy: 'network-only',
     });
     data = response.data;
   } catch (err) {

@@ -1,16 +1,20 @@
 import { useEffect } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
+import { useApolloClient } from '@apollo/client';
 import { useSignOutMutation } from '../../lib/graphql/signout.graphql';
 
 export default function SignOut() {
   // Signing Out
-  const [signOutMutation] = useSignOutMutation({
-    async onCompleted() {
-      Router.push('/');
-    },
-  });
+  const [signOutMutation] = useSignOutMutation();
+  const client = useApolloClient();
+  const router = useRouter();
+
   useEffect(() => {
-    signOutMutation();
+    signOutMutation().then(() => {
+      client.resetStore().then(() => {
+        router.push('/');
+      });
+    });
   }, []);
   return <div>Signout</div>;
 }

@@ -9,12 +9,7 @@ import {
 } from '@material-ui/core';
 import Link from 'next/link';
 
-type Props = {
-  currentUser?: object;
-};
-
-export default function Header(props: Props) {
-  const { currentUser } = props;
+export default function Header({ currentUser }) {
   const classes = useStyles();
 
   const links = [

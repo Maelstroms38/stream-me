@@ -1,29 +1,32 @@
 import { useState } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { useSignInMutation } from '../../lib/graphql/signin.graphql';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState();
+  const router = useRouter();
 
   // Signing In
-  const [signInMutation] = useSignInMutation({
-    async onCompleted({ login }) {
-      const { user } = login;
-      if (user && user._id) {
-        Router.push('/');
-      }
-    },
-  });
+  const [signInMutation] = useSignInMutation();
 
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    signInMutation({ variables: { email, password } });
+    try {
+      const { data } = await signInMutation({ variables: { email, password } });
+      if (data.login.user) {
+        router.push('/');
+      }
+    } catch (err) {
+      setErrorMsg(err);
+    }
   };
 
   return (
     <form onSubmit={onSubmit}>
+      {errorMsg && <p>{errorMsg}</p>}
       <h1>Sign In</h1>
       <div className="form-group">
         <label>Email Address</label>
