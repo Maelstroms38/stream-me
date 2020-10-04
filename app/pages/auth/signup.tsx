@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useApolloClient } from '@apollo/client';
 import { useSignUpMutation } from 'lib/graphql/signup.graphql';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +9,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 export default function SignUp() {
-  const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState();
@@ -40,32 +38,24 @@ export default function SignUp() {
       <Box my={4}>
         <form onSubmit={onSubmit}>
           {errorMsg && <p>{errorMsg}</p>}
-          <Typography variant="h4" className={classes.title}>
-            Sign Up
-          </Typography>
-          <div className="form-group">
-            <TextField
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="form-control"
-              label="Email"
-            />
-          </div>
-          <div className="form-group">
-            <TextField
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              className="form-control"
-              label="Password"
-            />
-          </div>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            className={classes.margin}
-          >
+          <Typography variant="h4">Sign Up</Typography>
+          <Box pb={2.5} />
+          <TextField
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="form-control"
+            label="Email"
+          />
+          <Box pb={2.5} />
+          <TextField
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            className="form-control"
+            label="Password"
+          />
+          <Box pb={2.5} />
+          <Button variant="contained" color="primary" size="large">
             Sign Up
           </Button>
         </form>
@@ -73,12 +63,3 @@ export default function SignUp() {
     </Container>
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    marginTop: theme.spacing(1),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));

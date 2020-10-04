@@ -10,9 +10,9 @@ export default function Index() {
           <Typography variant="h4" component="h1" gutterBottom>
             Next.js example
           </Typography>
-          <Link href="/about">
+          <Link href="/streams">
             <Button variant="contained" color="primary">
-              Go to the about page
+              Go to the streams page
             </Button>
           </Link>
         </Box>
