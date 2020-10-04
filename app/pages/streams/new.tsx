@@ -38,25 +38,23 @@ export default function CreateStream() {
           <TextField
             autoFocus
             label="Title"
-            helperText="Give a short title to the new Stream"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            required
           />
           <Box pb={2.5} />
           <TextField
-            autoFocus
             label="Description"
-            helperText="Give a description to the new Stream"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            required
           />
           <Box pb={2.5} />
           <TextField
-            autoFocus
             label="URL"
-            helperText="Give a URL to the new Stream"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
+            required
           />
           <Box pb={2.5} />
           <Button type="submit" variant="contained" color="primary">

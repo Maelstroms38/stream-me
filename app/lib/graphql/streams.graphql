@@ -1,11 +1,8 @@
-query Streams($userId: ObjectId!) {
-  streams(userId: $userId) {
+query Streams {
+  streams {
     _id
     title
     description
     url
-    author {
-      email
-    }
   }
 }

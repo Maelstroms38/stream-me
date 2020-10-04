@@ -24,8 +24,9 @@ export class StreamResolver {
   }
 
   @Query(() => [Stream])
-  streams(@Arg('userId', () => ObjectIdScalar) userId: ObjectId) {
-    return StreamModel.find({ author: userId });
+  @UseMiddleware(isAuth)
+  streams(@Ctx() ctx: MyContext) {
+    return StreamModel.find({ author: ctx.req.session?.userId });
   }
 
   @Mutation(() => Stream)

@@ -2,8 +2,10 @@ import * as React from 'react';
 import Hero from 'components/Hero';
 import { useStreamQuery, Stream } from 'lib/graphql/stream.graphql';
 
-export default function StreamPage({ id }) {
-  const { data, loading } = useStreamQuery({ variables: { streamId: id } });
+export default function StreamDetail({ id }) {
+  const { data, loading } = useStreamQuery({
+    variables: { streamId: id },
+  });
 
   if (!loading && data && data.stream) {
     return (
@@ -16,7 +18,7 @@ export default function StreamPage({ id }) {
   return null;
 }
 
-StreamPage.getInitialProps = async ({ query: { id } }) => {
+StreamDetail.getInitialProps = ({ query: { id } }) => {
   return {
     id,
   };

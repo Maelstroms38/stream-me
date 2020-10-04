@@ -29,7 +29,7 @@ export default function SignUp() {
         });
       }
     } catch (err) {
-      setErrorMsg(err);
+      setErrorMsg(err.message);
     }
   };
 
@@ -45,6 +45,7 @@ export default function SignUp() {
             onChange={(e) => setEmail(e.target.value)}
             className="form-control"
             label="Email"
+            required
           />
           <Box pb={2.5} />
           <TextField
@@ -53,6 +54,7 @@ export default function SignUp() {
             type="password"
             className="form-control"
             label="Password"
+            required
           />
           <Box pb={2.5} />
           <Button variant="contained" color="primary" size="large">

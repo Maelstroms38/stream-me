@@ -26,7 +26,7 @@ scalar ObjectId
 type Query {
   currentUser: User
   stream(streamId: ObjectId!): Stream
-  streams(userId: ObjectId!): [Stream!]!
+  streams: [Stream!]!
   user(userId: ObjectId!): User
 }
 
