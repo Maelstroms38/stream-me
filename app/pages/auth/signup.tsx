@@ -57,7 +57,12 @@ export default function SignUp() {
             required
           />
           <Box pb={2.5} />
-          <Button variant="contained" color="primary" size="large">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            type="submit"
+          >
             Sign Up
           </Button>
         </form>

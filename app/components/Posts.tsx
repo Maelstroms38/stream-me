@@ -35,9 +35,6 @@ export default function Posts(props: Props) {
                     <Typography variant="subtitle1" paragraph>
                       {post.description}
                     </Typography>
-                    <Typography variant="subtitle1" color="textPrimary">
-                      Continue reading...
-                    </Typography>
                   </CardContent>
                 </div>
                 <Hidden xsDown>
