@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useCreateStreamMutation } from 'lib/graphql/createStream.graphql';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
@@ -33,6 +34,7 @@ export default function CreateStream() {
   return (
     <Container maxWidth="sm">
       <Box my={4}>
+        <Typography variant="h4">Create Stream</Typography>
         <form onSubmit={onSubmit}>
           <Box pb={2.5} />
           <TextField

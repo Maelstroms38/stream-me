@@ -1,8 +1,11 @@
 import * as React from 'react';
 import Hero from 'components/Hero';
+import { useRouter } from 'next/router';
 import { useStreamQuery, Stream } from 'lib/graphql/stream.graphql';
 
-export default function StreamDetail({ id }) {
+export default function StreamDetail() {
+  const router = useRouter();
+  const { id } = router.query;
   const { data, loading } = useStreamQuery({
     variables: { streamId: id },
   });
@@ -17,9 +20,3 @@ export default function StreamDetail({ id }) {
 
   return null;
 }
-
-StreamDetail.getInitialProps = ({ query: { id } }) => {
-  return {
-    id,
-  };
-};

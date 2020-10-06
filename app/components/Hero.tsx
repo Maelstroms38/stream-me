@@ -14,13 +14,6 @@ export default function Hero(props: Props) {
 
   return (
     <Paper className={styles.mainFeaturedPost}>
-      {
-        <img
-          style={{ display: 'none' }}
-          src="https://source.unsplash.com/user/erondu"
-          alt="background"
-        />
-      }
       <div className={styles.overlay} />
       <Grid container>
         <Grid item md={6}>
