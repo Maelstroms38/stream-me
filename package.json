@@ -1,0 +1,27 @@
+{
+  "name": "stream-me",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build": "yarn workspace @stream-me/app run build",
+    "start": "yarn workspace @stream-me/api run start",
+    "dev": "yarn workspace @stream-me/api run dev"
+  },
+  "workspaces": [
+    "api",
+    "app"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maelstroms38/stream-me.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maelstroms38/stream-me/issues"
+  },
+  "homepage": "https://github.com/Maelstroms38/stream-me#readme"
+}
