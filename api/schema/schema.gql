@@ -51,5 +51,6 @@ type User {
 
 type UserResponse {
   errors: [FieldError!]
+  token: String
   user: User
 }

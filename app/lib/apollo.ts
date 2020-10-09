@@ -5,15 +5,28 @@ import {
   NormalizedCacheObject,
   HttpLink,
 } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
 function createApolloClient() {
+  const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem('token');
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    };
+  });
+  const httpLink = new HttpLink({
+    uri: '/graphql',
+    credentials: 'include',
+  });
   return new ApolloClient({
-    link: new HttpLink({
-      uri: '/graphql',
-      credentials: 'same-origin',
-    }),
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
 }

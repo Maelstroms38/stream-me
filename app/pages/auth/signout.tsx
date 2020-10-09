@@ -11,6 +11,7 @@ export default function SignOut() {
 
   useEffect(() => {
     signOutMutation().then(() => {
+      localStorage.removeItem('token');
       client.resetStore().then(() => {
         router.push('/');
       });

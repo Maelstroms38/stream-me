@@ -23,7 +23,8 @@ export default function SignUp() {
 
     try {
       const { data } = await signUpMutation({ variables: { email, password } });
-      if (data.register.user) {
+      if (data.register.token) {
+        localStorage.setItem('token', data.register.token);
         client.resetStore().then(() => {
           router.push('/');
         });

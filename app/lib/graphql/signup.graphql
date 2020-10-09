@@ -4,6 +4,7 @@ mutation SignUp($email: String!, $password: String!) {
       _id
       email
     }
+    token
     errors {
       path
       message

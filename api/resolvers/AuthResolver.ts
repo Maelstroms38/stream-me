@@ -1,4 +1,5 @@
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
+import jwt from 'jsonwebtoken';
 
 import { UserModel } from '../entity/User';
 import { AuthInput } from '../types/AuthInput';
@@ -20,8 +21,7 @@ export class AuthResolver {
   @Mutation(() => UserResponse)
   async register(
     @Arg('input')
-    { email, password }: AuthInput,
-    @Ctx() ctx: MyContext
+    { email, password }: AuthInput
   ): Promise<UserResponse> {
     const existingUser = await UserModel.findOne({ email });
 
@@ -40,19 +40,21 @@ export class AuthResolver {
     const user = new UserModel({ email, password: hashedPassword });
     await user.save();
 
-    // Store user id on session object
-    ctx.req.session!.userId = user.id;
-    ctx.req.session?.save((err) => {
-      console.log(err);
-    });
+    const payload = {
+      id: user.id,
+    };
 
-    return { user };
+    const token = jwt.sign(
+      payload,
+      process.env.SESSION_SECRET || 'aslkdfjoiq12312'
+    );
+
+    return { user, token };
   }
 
   @Mutation(() => UserResponse)
   async login(
-    @Arg('input') { email, password }: AuthInput,
-    @Ctx() ctx: MyContext
+    @Arg('input') { email, password }: AuthInput
   ): Promise<UserResponse> {
     const user = await UserModel.findOne({ email });
 
@@ -66,15 +68,17 @@ export class AuthResolver {
       return invalidLoginResponse;
     }
 
-    // Store it on session object
-    ctx.req.session!.userId = user.id;
-    ctx.req.session?.save((err) => {
-      if (err) {
-        console.error(err);
-      }
-    });
+    const payload = {
+      id: user.id,
+    };
 
-    return { user };
+    // Store it on session object
+    const token = jwt.sign(
+      payload,
+      process.env.SESSION_SECRET || 'aslkdfjoiq12312'
+    );
+
+    return { user, token };
   }
 
   @Mutation(() => Boolean)
