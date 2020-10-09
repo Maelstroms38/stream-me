@@ -18,6 +18,6 @@ export class UserResolver {
     @Ctx()
     ctx: MyContext
   ): Promise<User | null> {
-    return await UserModel.findById(ctx.req.session!.userId);
+    return await UserModel.findById(ctx.req.session?.userId);
   }
 }

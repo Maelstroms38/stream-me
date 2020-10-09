@@ -11,7 +11,6 @@ import nextApp from '@stream-me/app';
 
 const handle = nextApp.getRequestHandler();
 
-const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 8000;
 
 async function createServer() {
@@ -22,7 +21,6 @@ async function createServer() {
 
     // allow CORS from client app
     const corsOptions = {
-      origin: dev ? process.env.URL_APP : process.env.PRODUCTION_URL_APP,
       credentials: true,
     };
     app.use(cors(corsOptions));

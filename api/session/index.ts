@@ -25,6 +25,7 @@ export default async function createSession() {
       ttl: 14 * 24 * 60 * 60, // save session 14 days
       autoRemove: 'interval',
       autoRemoveInterval: 1440, // clears every day
+      autoReconnect: true,
     }),
     resave: false,
     saveUninitialized: false,

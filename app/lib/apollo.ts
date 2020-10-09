@@ -11,8 +11,8 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 function createApolloClient() {
   return new ApolloClient({
     link: new HttpLink({
-      uri: 'http://localhost:8000/graphql',
-      credentials: 'include',
+      uri: '/graphql',
+      credentials: 'same-origin',
     }),
     cache: new InMemoryCache(),
   });
