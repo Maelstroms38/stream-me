@@ -13,6 +13,7 @@ import { useCurrentUserQuery } from 'lib/graphql/currentUser.graphql';
 export default function Header() {
   const classes = useStyles();
   const { data, loading } = useCurrentUserQuery({
+    fetchPolicy: 'network-only',
     errorPolicy: 'ignore',
   });
   const currentUser = !loading && data && data.currentUser;

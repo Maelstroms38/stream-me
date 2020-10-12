@@ -26,7 +26,7 @@ export class StreamResolver {
   @Query(() => [Stream])
   @UseMiddleware(isAuth)
   streams(@Ctx() ctx: MyContext) {
-    return StreamModel.find({ author: ctx.req.session?.userId });
+    return StreamModel.find({ author: ctx.res.locals.userId });
   }
 
   @Mutation(() => Stream)
@@ -37,7 +37,7 @@ export class StreamResolver {
   ): Promise<Stream> {
     const stream = new StreamModel({
       ...streamInput,
-      author: ctx.req.session?.userId,
+      author: ctx.res.locals.userId,
     } as Stream);
 
     await stream.save();
