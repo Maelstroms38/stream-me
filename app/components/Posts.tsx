@@ -22,17 +22,30 @@ export default function Posts(props: Props) {
       {streams.map((post) => (
         <Grid item key={post._id} xs={12} md={6}>
           <Link href={`/streams/${post._id}`}>
-            <CardActionArea component="a" href="#">
+            <CardActionArea>
               <Card className={styles.card}>
                 <div className={styles.cardDetails}>
                   <CardContent>
-                    <Typography component="h2" variant="h5">
+                    <Typography
+                      component="h2"
+                      variant="h5"
+                      className={styles.cardText}
+                    >
                       {post.title}
                     </Typography>
-                    <Typography variant="subtitle1" color="textSecondary">
+                    <Typography
+                      noWrap={true}
+                      variant="subtitle1"
+                      color="textSecondary"
+                      className={styles.cardText}
+                    >
                       {post.url}
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography
+                      variant="subtitle1"
+                      paragraph
+                      className={styles.cardText}
+                    >
                       {post.description}
                     </Typography>
                   </CardContent>
@@ -62,6 +75,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   cardDetails: {
     flex: 1,
+  },
+  cardText: {
+    maxWidth: '26rem',
   },
   cardMedia: {
     width: 160,
