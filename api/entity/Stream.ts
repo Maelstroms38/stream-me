@@ -1,8 +1,8 @@
-import { prop as Property, getModelForClass } from "@typegoose/typegoose";
-import { ObjectId } from "mongodb";
-import { Field, ObjectType } from "type-graphql";
-import { User } from "./User";
-import { Ref } from "../types/Ref";
+import { prop as Property, getModelForClass } from '@typegoose/typegoose';
+import { ObjectId } from 'mongodb';
+import { Field, ObjectType } from 'type-graphql';
+import { User } from './User';
+import { Ref } from '../types/Ref';
 
 @ObjectType()
 export class Stream {
@@ -10,7 +10,7 @@ export class Stream {
   readonly _id: ObjectId;
 
   @Field()
-  @Property({ required: true })
+  @Property({ required: true, unique: true })
   title: string;
 
   @Field()
@@ -24,6 +24,10 @@ export class Stream {
   @Field(() => User)
   @Property({ ref: User, required: true })
   author: Ref<User>;
+
+  @Field()
+  @Property()
+  token?: string;
 }
 
 export const StreamModel = getModelForClass(Stream);

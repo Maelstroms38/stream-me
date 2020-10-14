@@ -1,6 +1,6 @@
-import { prop as Property, getModelForClass } from "@typegoose/typegoose";
-import { ObjectId } from "mongodb";
-import { Field, ObjectType } from "type-graphql";
+import { prop as Property, getModelForClass } from '@typegoose/typegoose';
+import { ObjectId } from 'mongodb';
+import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()
 export class User {
@@ -8,7 +8,7 @@ export class User {
   readonly _id: ObjectId;
 
   @Field()
-  @Property({ required: true })
+  @Property({ required: true, unique: true })
   email: string;
 
   @Property({ required: true })

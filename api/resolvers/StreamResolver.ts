@@ -15,12 +15,20 @@ import { Stream, StreamModel } from '../entity/Stream';
 import { ObjectIdScalar } from '../schema/object-id.scalar';
 import { StreamInput } from '../types/StreamInput';
 import { isAuth } from '../middleware/isAuth';
+import { twilio } from '../middleware/twilio';
 
 @Resolver(() => Stream)
 export class StreamResolver {
   @Query(() => Stream, { nullable: true })
-  stream(@Arg('streamId', () => ObjectIdScalar) streamId: ObjectId) {
-    return StreamModel.findById(streamId);
+  @UseMiddleware(isAuth)
+  @UseMiddleware(twilio)
+  async stream(
+    @Arg('streamId', () => ObjectIdScalar) streamId: ObjectId,
+    @Ctx() ctx: MyContext
+  ) {
+    const stream = await StreamModel.findById(streamId);
+    stream!.token = ctx.res.locals.token;
+    return stream;
   }
 
   @Query(() => [Stream])

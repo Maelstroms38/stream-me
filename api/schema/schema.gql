@@ -35,6 +35,7 @@ type Stream {
   author: User!
   description: String!
   title: String!
+  token: String!
   url: String!
 }
 
