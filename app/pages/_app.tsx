@@ -7,6 +7,9 @@ import { useApollo } from '../lib/apollo';
 import { themeDark, themeLight } from '../lib/theme';
 import Header from 'components/Header';
 
+// Video Styles
+import 'video.js/dist/video-js.css';
+
 export default function MyApp({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
 
