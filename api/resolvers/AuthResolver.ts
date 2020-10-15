@@ -1,9 +1,8 @@
-import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
+import { Arg, Mutation, Resolver } from 'type-graphql';
 import jwt from 'jsonwebtoken';
 
 import { UserModel } from '../entity/User';
 import { AuthInput } from '../types/AuthInput';
-import { MyContext } from '../types/MyContext';
 import { UserResponse } from '../types/UserResponse';
 import { Password } from '../utils/password';
 
@@ -79,19 +78,5 @@ export class AuthResolver {
     );
 
     return { user, token };
-  }
-
-  @Mutation(() => Boolean)
-  async logout(@Ctx() ctx: MyContext): Promise<Boolean> {
-    return new Promise((res, rej) =>
-      ctx.req.session?.destroy((err) => {
-        if (err) {
-          console.log(err);
-          return rej(false);
-        }
-
-        return res(true);
-      })
-    );
   }
 }

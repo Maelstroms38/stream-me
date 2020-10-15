@@ -16,7 +16,9 @@ const port = process.env.PORT || 8000;
 async function createServer() {
   try {
     // create mongoose connection
-    const session = await createSession();
+    await createSession();
+
+    // create express app
     const app = express();
 
     // allow CORS from client app
@@ -24,10 +26,9 @@ async function createServer() {
       credentials: true,
     };
     app.use(cors(corsOptions));
+
     // allow JSON requests
     app.use(express.json());
-    // use MongoDB session
-    app.use(session);
 
     const schema = await createSchema();
 

@@ -16,7 +16,6 @@ type FieldError {
 type Mutation {
   addStream(input: StreamInput!): Stream!
   login(input: AuthInput!): UserResponse!
-  logout: Boolean!
   register(input: AuthInput!): UserResponse!
 }
 
