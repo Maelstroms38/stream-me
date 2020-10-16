@@ -6,11 +6,12 @@ import {
   Typography,
   Button,
   Link as LinkText,
+  Switch,
 } from '@material-ui/core';
 import Link from 'next/link';
 import { useCurrentUserQuery } from 'lib/graphql/currentUser.graphql';
 
-export default function Header() {
+export default function Header({ darkState, handleThemeChange }) {
   const classes = useStyles();
   const { data, loading } = useCurrentUserQuery({
     fetchPolicy: 'network-only',
@@ -44,6 +45,7 @@ export default function Header() {
               </LinkText>
             </Link>
           </Typography>
+          <Switch checked={darkState} onChange={handleThemeChange} />
           {links}
         </Toolbar>
       </AppBar>

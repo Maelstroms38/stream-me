@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useEffect } from 'react';
@@ -8,6 +9,11 @@ import { themeDark, themeLight } from '../lib/theme';
 import Header from 'components/Header';
 
 export default function MyApp({ Component, pageProps }) {
+  const [darkState, setDarkState] = useState(false);
+  const handleThemeChange = () => {
+    setDarkState(!darkState);
+  };
+
   const apolloClient = useApollo(pageProps.initialApolloState);
 
   useEffect(() => {
@@ -20,9 +26,9 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={false ? themeDark : themeLight}>
+      <ThemeProvider theme={darkState ? themeDark : themeLight}>
         <CssBaseline />
-        <Header />
+        <Header darkState={darkState} handleThemeChange={handleThemeChange} />
         <Component {...pageProps} />
       </ThemeProvider>
     </ApolloProvider>
