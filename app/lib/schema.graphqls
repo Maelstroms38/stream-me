@@ -15,13 +15,13 @@ type FieldError {
 
 type Mutation {
   addStream(input: StreamInput!): Stream!
+  deleteStream(streamId: ObjectId!): Boolean!
+  editStream(input: StreamInput!): Stream!
   login(input: AuthInput!): UserResponse!
   register(input: AuthInput!): UserResponse!
 }
 
-"""
-Mongo object id scalar type
-"""
+"""Mongo object id scalar type"""
 scalar ObjectId
 
 type Query {
@@ -41,6 +41,7 @@ type Stream {
 
 input StreamInput {
   description: String
+  id: ObjectId
   title: String!
   url: String
 }

@@ -1,13 +1,10 @@
-import { useRouter } from 'next/router';
 import Container from '@material-ui/core/Container';
 
 import Hero from 'components/Hero';
 import Content from 'components/Content';
 import { useStreamQuery, Stream } from 'lib/graphql/stream.graphql';
 
-export default function StreamDetail() {
-  const router = useRouter();
-  const { id } = router.query;
+export default function StreamDetail({ id }) {
   const { data, loading } = useStreamQuery({
     variables: { streamId: id },
   });
@@ -23,3 +20,7 @@ export default function StreamDetail() {
 
   return null;
 }
+
+StreamDetail.getInitialProps = ({ query: { id } }) => {
+  return { id };
+};

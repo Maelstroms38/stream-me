@@ -5,6 +5,7 @@ query Stream($streamId: ObjectId!) {
     description
     url
     author {
+      _id
       email
     }
   }

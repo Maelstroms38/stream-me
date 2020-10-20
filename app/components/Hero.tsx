@@ -1,8 +1,12 @@
 import Typography from '@material-ui/core/Typography';
+import Link from 'next/link';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { Stream } from '../lib/graphql/streams.graphql';
+import { useCurrentUserQuery } from 'lib/graphql/currentUser.graphql';
 
 interface Props {
   stream: Stream;
@@ -11,6 +15,15 @@ interface Props {
 export default function Hero(props: Props) {
   const styles = useStyles();
   const { stream } = props;
+
+  const { data, loading } = useCurrentUserQuery({
+    errorPolicy: 'ignore',
+  });
+  const showEdit =
+    !loading &&
+    data &&
+    data.currentUser &&
+    data.currentUser._id === stream.author._id;
 
   return (
     <Paper className={styles.mainFeaturedPost}>
@@ -29,6 +42,14 @@ export default function Hero(props: Props) {
             <Typography variant="h5" color="inherit" paragraph>
               {stream.description}
             </Typography>
+            <Box pb={1} />
+            {showEdit && (
+              <Link href={`edit/${stream._id}`}>
+                <Button variant="outlined" color="inherit">
+                  Edit Stream
+                </Button>
+              </Link>
+            )}
           </div>
         </Grid>
       </Grid>
@@ -48,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
     marginBottom: theme.spacing(4),
-    backgroundImage: 'url(https://source.unsplash.com/user/erondu)',
+    backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',

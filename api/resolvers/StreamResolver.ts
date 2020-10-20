@@ -45,6 +45,44 @@ export class StreamResolver {
     return stream;
   }
 
+  @Mutation(() => Stream)
+  @UseMiddleware(isAuth)
+  async editStream(
+    @Arg('input') streamInput: StreamInput,
+    @Ctx() ctx: MyContext
+  ): Promise<Stream> {
+    const { id, title, description, url } = streamInput;
+    const stream = await StreamModel.findOneAndUpdate(
+      { _id: id, author: ctx.res.locals.userId },
+      {
+        title,
+        description,
+        url,
+      },
+      { runValidators: true, new: true }
+    );
+    if (!stream) {
+      throw new Error('Stream not found');
+    }
+    return stream;
+  }
+
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async deleteStream(
+    @Arg('streamId', () => ObjectIdScalar) streamId: ObjectId,
+    @Ctx() ctx: MyContext
+  ): Promise<Boolean | undefined> {
+    const deleted = await StreamModel.findOneAndDelete({
+      _id: streamId,
+      author: ctx.res.locals.userId,
+    });
+    if (!deleted) {
+      throw new Error('Stream not found');
+    }
+    return true;
+  }
+
   @FieldResolver()
   async author(@Root() stream: Stream): Promise<User | null> {
     return await UserModel.findById(stream.author);
