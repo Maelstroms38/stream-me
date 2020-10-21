@@ -1,17 +1,10 @@
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useApolloClient } from '@apollo/client';
+import { useAuth } from 'lib/useAuth';
 
 export default function SignOut() {
-  // Signing Out
-  const client = useApolloClient();
-  const router = useRouter();
-
+  const { signOut } = useAuth();
   useEffect(() => {
-    sessionStorage.removeItem('token');
-    client.resetStore().then(() => {
-      router.push('/');
-    });
+    signOut();
   }, []);
   return <div>Signout</div>;
 }

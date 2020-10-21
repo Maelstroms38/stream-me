@@ -6,24 +6,19 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { Stream } from '../lib/graphql/streams.graphql';
-import { useCurrentUserQuery } from 'lib/graphql/currentUser.graphql';
+import { useAuth } from 'lib/useAuth';
 
 interface Props {
   stream: Stream;
 }
 
-export default function Hero(props: Props) {
+export default function Hero({ stream }: Props) {
   const styles = useStyles();
-  const { stream } = props;
+  const { user } = useAuth();
 
-  const { data, loading } = useCurrentUserQuery({
-    errorPolicy: 'ignore',
-  });
   const showEdit =
-    !loading &&
-    data &&
-    data.currentUser &&
-    data.currentUser._id === stream.author._id;
+    user &&
+    user._id === stream.author._id;
 
   return (
     <Paper className={styles.mainFeaturedPost}>

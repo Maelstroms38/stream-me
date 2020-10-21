@@ -9,21 +9,17 @@ import {
   Switch,
 } from '@material-ui/core';
 import Link from 'next/link';
-import { useCurrentUserQuery } from 'lib/graphql/currentUser.graphql';
+import { useAuth } from 'lib/useAuth';
 
 export default function Header({ darkState, handleThemeChange }) {
   const classes = useStyles();
-  const { data, loading } = useCurrentUserQuery({
-    fetchPolicy: 'network-only',
-    errorPolicy: 'ignore',
-  });
-  const currentUser = !loading && data && data.currentUser;
+  const { user } = useAuth();
 
   const links = [
-    !currentUser && { label: 'Sign Up', href: '/auth/signup' },
-    !currentUser && { label: 'Sign In', href: '/auth/signin' },
-    currentUser && { label: 'Create', href: '/streams/new' },
-    currentUser && { label: 'Sign Out', href: '/auth/signout' },
+    !user && { label: 'Sign Up', href: '/auth/signup' },
+    !user && { label: 'Sign In', href: '/auth/signin' },
+    user && { label: 'Create', href: '/streams/new' },
+    user && { label: 'Sign Out', href: '/auth/signout' },
   ]
     .filter((link) => link)
     .map(({ label, href }) => {

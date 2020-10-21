@@ -1,44 +1,26 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { useApolloClient } from '@apollo/client';
-import { useSignUpMutation } from 'lib/graphql/signup.graphql';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import { useAuth } from 'lib/useAuth';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState();
-  const router = useRouter();
-  const client = useApolloClient();
-
-  // Signing Up
-  const [signUpMutation] = useSignUpMutation();
+  const { error, signUp } = useAuth();
 
   const onSubmit = async (event) => {
     event.preventDefault();
-
-    try {
-      const { data } = await signUpMutation({ variables: { email, password } });
-      if (data.register.token) {
-        sessionStorage.setItem('token', data.register.token);
-        client.resetStore().then(() => {
-          router.push('/');
-        });
-      }
-    } catch (err) {
-      setErrorMsg(err.message);
-    }
+    signUp(email, password);
   };
 
   return (
     <Container maxWidth="sm">
       <Box my={4}>
         <form onSubmit={onSubmit}>
-          {errorMsg && <p>{errorMsg}</p>}
+          {error && <p>{error}</p>}
           <Typography variant="h4">Sign Up</Typography>
           <Box pb={2.5} />
           <TextField
