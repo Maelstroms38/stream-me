@@ -1,5 +1,4 @@
 import { MiddlewareFn } from 'type-graphql';
-import { ApolloError } from 'apollo-server-core';
 import { MyContext } from '../types/MyContext';
 import jwt from 'jsonwebtoken';
 
@@ -13,6 +12,6 @@ export const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
     context.res.locals.userId = user.id;
     return next();
   } catch (err) {
-    throw new ApolloError(err.message);
+    throw new Error(err.message);
   }
 };
