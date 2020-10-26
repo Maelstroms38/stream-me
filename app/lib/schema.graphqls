@@ -8,11 +8,6 @@ input AuthInput {
   password: String!
 }
 
-type FieldError {
-  message: String!
-  path: String!
-}
-
 type Mutation {
   addStream(input: StreamInput!): Stream!
   deleteStream(streamId: ObjectId!): Boolean!
@@ -52,7 +47,6 @@ type User {
 }
 
 type UserResponse {
-  errors: [FieldError!]
   token: String
   user: User
 }

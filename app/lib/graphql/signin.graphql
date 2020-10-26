@@ -5,9 +5,5 @@ mutation SignIn($email: String!, $password: String!) {
       email
     }
     token
-    errors {
-      path
-      message
-    }
   }
 }

@@ -6,15 +6,6 @@ import { AuthInput } from '../types/AuthInput';
 import { UserResponse } from '../types/UserResponse';
 import { Password } from '../utils/password';
 
-const invalidLoginResponse = {
-  errors: [
-    {
-      path: 'email',
-      message: 'invalid login',
-    },
-  ],
-};
-
 @Resolver()
 export class AuthResolver {
   @Mutation(() => UserResponse)
@@ -25,14 +16,7 @@ export class AuthResolver {
     const existingUser = await UserModel.findOne({ email });
 
     if (existingUser) {
-      return {
-        errors: [
-          {
-            path: 'email',
-            message: 'already in use',
-          },
-        ],
-      };
+      throw new Error("Email already in use");
     }
 
     const hashedPassword = await Password.toHash(password);
@@ -58,13 +42,13 @@ export class AuthResolver {
     const user = await UserModel.findOne({ email });
 
     if (!user) {
-      return invalidLoginResponse;
+      throw new Error("Invalid Login");
     }
 
     const valid = await Password.compare(user.password, password);
 
     if (!valid) {
-      return invalidLoginResponse;
+      throw new Error("Invalid Login");
     }
 
     const payload = {
