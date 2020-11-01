@@ -1,10 +1,10 @@
 import { Arg, Mutation, Resolver } from 'type-graphql';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
 import { UserModel } from '../entity/User';
 import { AuthInput } from '../types/AuthInput';
 import { UserResponse } from '../types/UserResponse';
-import { Password } from '../utils/password';
 
 @Resolver()
 export class AuthResolver {
@@ -16,10 +16,10 @@ export class AuthResolver {
     const existingUser = await UserModel.findOne({ email });
 
     if (existingUser) {
-      throw new Error("Email already in use");
+      throw new Error('Email already in use');
     }
 
-    const hashedPassword = await Password.toHash(password);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new UserModel({ email, password: hashedPassword });
     await user.save();
 
@@ -42,13 +42,13 @@ export class AuthResolver {
     const user = await UserModel.findOne({ email });
 
     if (!user) {
-      throw new Error("Invalid Login");
+      throw new Error('Invalid Login');
     }
 
-    const valid = await Password.compare(user.password, password);
+    const valid = await bcrypt.compare(password, user.password);
 
     if (!valid) {
-      throw new Error("Invalid Login");
+      throw new Error('Invalid Login');
     }
 
     const payload = {
